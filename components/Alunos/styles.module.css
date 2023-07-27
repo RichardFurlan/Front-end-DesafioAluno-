@@ -1,3 +1,10 @@
 .cards{
     padding-bottom: 10px;
 }
+
+.success{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index:9999;
+}

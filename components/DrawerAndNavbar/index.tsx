@@ -1,17 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import Navbar from "../NavBar";
 import CustomDrawer from "../Drawer";
-import AppBar from "@mui/material/AppBar";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Grid } from "@mui/material";
+import CardsMenu from "../CardsMenu";
+import api from "@/app/api";
 
 const drawerWidth = 240;
+interface Data {
+  id: number;
+  nome: string;
+  cpf: string;
+  mensalidade: number;
+}
+
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -28,6 +34,8 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 const PersistentDrawerLeft: React.FC = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState<Data[]>([]);
+
 
   const handleDrawer = () => {
     if (open) {
@@ -37,17 +45,49 @@ const PersistentDrawerLeft: React.FC = () => {
     }
   };
 
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const response = await api.get<Data[]>("/aluno");
+      setData(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    }
+  }
+
+  const receita: number = data
+    .map((item) => item.mensalidade)
+    .reduce((acc, cur) => acc + cur, 0);
+
+  const qtdeAlunos: number = data.length;
+
   return (
     <Box sx={{ display: "flex" }}>
 
       <Navbar handleDrawerOpen={handleDrawer} theme={theme} />
       <CustomDrawer open={open} handleDrawerClose={handleDrawer} />
 
-      <Main open={open}>
+      <CssBaseline />
+      <Main open={open}
+        style={{
+              display: "flex",
+          justifyContent: "center",
+
+              alignItems: "",
+            }}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
+        <Grid container spacing={6} justifyContent="center">
+            <Grid item>
+              <CardsMenu receita={receita} />
+            </Grid>
+            <Grid item>
+              <CardsMenu qtdeAlunos={qtdeAlunos} />
+            </Grid>
+          </Grid>
         </Toolbar>
       </Main>
     </Box>

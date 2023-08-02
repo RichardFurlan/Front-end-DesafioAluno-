@@ -1,17 +1,14 @@
 import Collapse from "@mui/material/Collapse";
-import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
-import { StarBorder } from "@mui/icons-material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Link from "next/link";
-import { Typography } from "@mui/material";
+import GroupsIcon from '@mui/icons-material/Groups';
 
 export default function ListMenuDrawer() {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +36,7 @@ export default function ListMenuDrawer() {
             <List component="div" disablePadding >
               <ListItemButton sx={{ pl: 4}} component="button">
                 <ListItemIcon>
-                  <StarBorder />
+                  <GroupsIcon sx={{ color: "#993399" }}/>
                 </ListItemIcon>
                   <ListItemText sx={{color: '#000'}} primary="Lista de alunos"/>
               </ListItemButton>

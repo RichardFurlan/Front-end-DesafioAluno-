@@ -5,14 +5,12 @@ import {
   Alert,
   Avatar,
   Box,
+  Button,
   Card,
-  Checkbox,
-  Divider,
   Stack,
   Table,
   TableBody,
   TableCell,
-  TableHead,
   TableRow,
   Typography,
 } from "@mui/material";
@@ -21,6 +19,7 @@ import styled from "./styles.module.css";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 interface Data {
   id: number;
@@ -72,21 +71,22 @@ const Lista: React.FC = () => {
             <TableBody>
               {data.map((item) => {
                 return (
-                  <TableRow key={item.id}>
+                  <TableRow key={item.id} className= {styled.cards}>
                     <TableCell>
-                      <Link
-                        href={{
-                          pathname: "/EditarAluno",
-                          query: { id: item.id },
-                        }}
-                        style={{ textDecoration: "none", color: "#005" }}
-                      >
+                    <Link
+                      href={{
+                        pathname: "/EditarAluno",
+                        query: { id: item.id },
+                      }}
+                      style={{ textDecoration: "none", color: "#005" }}
+                    >
                         <Stack alignItems="center" direction="row" spacing={3}>
                           <Avatar>{getInitials(item.nome)}</Avatar>
                           <Typography variant="subtitle2">
                             {item.nome}
                           </Typography>
                         </Stack>
+
                       </Link>
                     </TableCell>
                     <TableCell style={{ marginLeft: 0 }}>
@@ -103,13 +103,21 @@ const Lista: React.FC = () => {
                     <TableCell>
                       <DeleteIcon onClick={() => handleDeleteAluno(item.id)} />
                     </TableCell>
-                  </TableRow>
+                    </TableRow>
                 );
               })}
             </TableBody>
           </Table>
         </Box>
       </Card>
+      <Link href="/">
+      <Button className={styled.voltar}
+            variant="contained"
+        >
+          <ReplyIcon />
+        Voltar
+      </Button>
+          </Link>
     </div>
   );
 };

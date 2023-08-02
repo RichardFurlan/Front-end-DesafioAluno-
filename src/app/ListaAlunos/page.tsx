@@ -1,5 +1,4 @@
 import { Margin } from "@mui/icons-material";
-import CriarAluno from "../../../components/Alunos/CriarAluno";
 import Lista from "../../../components/Alunos/Lista";
 import { Box, Button } from "@mui/material";
 import Link from "next/link";

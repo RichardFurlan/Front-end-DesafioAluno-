@@ -1,4 +1,4 @@
-import Lista from "../../components/Alunos/Lista";
+
 import api from "./api";
 import './globals.css'
 import HomeComponent from "../../components/HomeComponent";
